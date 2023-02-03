@@ -1,0 +1,46 @@
+{
+    "name": "Basic Actions",
+    "maps": [
+        {
+            "name": "Default",
+            "id": "2f63ec36-ee2c-4cba-a70f-d3fbf922fb1d",
+            "actions": [
+                {
+                    "name": "Left Click",
+                    "type": "Button",
+                    "id": "f8c2a683-14fa-4a5a-b32d-cc3fc570d846",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9b595c4c-03bf-4216-ba4f-a289576b20e0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Key n Mouse",
+                    "action": "Left Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Key n Mouse",
+            "bindingGroup": "Key n Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
