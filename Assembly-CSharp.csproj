@@ -45,6 +45,9 @@
      <Compile Include="Assets\Planet.cs" />
      <Compile Include="Assets\Settings.cs" />
      <Compile Include="Assets\RootType.cs" />
+     <Compile Include="Assets\PlanetSapling.cs" />
+     <Compile Include="Assets\ShopManager.cs" />
+     <Compile Include="Assets\TreeShopItem.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

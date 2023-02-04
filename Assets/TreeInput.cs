@@ -31,10 +31,18 @@ public class TreeInput : MonoBehaviour
     if (eventData.performed)
     {
 
-      TreeRoot root = FindNearRoot(Mouse.current.position.ReadValue());
-      if (root != null)
+      Transform selection = FindNearSelectable(Mouse.current.position.ReadValue());
+      if (selection != null)
       {
-        SelectRoot(root);
+        TreeRoot root = selection.GetComponentInParent<TreeRoot>();
+        if (root != null) {
+            SelectRoot(root);
+        }
+
+        PlanetSapling sapling = selection.GetComponent<PlanetSapling>();
+        if (sapling != null) {
+            sapling.OpenShop();
+        }
       }
     }
   }
@@ -55,17 +63,16 @@ public class TreeInput : MonoBehaviour
 
   #region Business Logic
 
-  TreeRoot FindNearRoot(Vector2 pos)
+  Transform FindNearSelectable(Vector2 pos)
   {
 
     RaycastHit2D hit;
     Ray ray = Camera.main.ScreenPointToRay(pos);
 
-    LayerMask mask = LayerMask.GetMask("RootNode");
+    LayerMask mask = LayerMask.GetMask("SelectLayer");
     if (hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, mask))
     {
-      TreeRoot root = hit.transform.GetComponentInParent<TreeRoot>();
-      return root;
+        return hit.transform;
     }
 
     return null;

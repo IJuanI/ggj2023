@@ -30,5 +30,9 @@ public class Settings : MonoBehaviour
 
     public float minRootLength = 1f;
 
+    public float saplingOffset = 0.5f;
+
+    public float treeOffset = -0.2f;
+
     public SelectionMode selectionMode = SelectionMode.Next;
 }

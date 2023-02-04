@@ -7,13 +7,11 @@ public struct RootProperties {
 
     public Planet planet;
     public RootType type;
-    public ResourceType resource;
-    public float cost;
+    public ResourceCost cost;
 
-    public RootProperties(Planet planet, RootType type, ResourceType resource, float cost) {
+    public RootProperties(Planet planet, RootType type, ResourceCost cost) {
         this.planet = planet;
         this.type = type;
-        this.resource = resource;
         this.cost = cost;
     }
 }
@@ -32,7 +30,7 @@ public class TreeRoot : MonoBehaviour
     public RootSkin selectedSkin;
 
     [SerializeField]
-    RootProperties properties;
+    public RootProperties properties;
     TreeRoot parent;
 
     Spline currSpline;
@@ -63,26 +61,33 @@ public class TreeRoot : MonoBehaviour
         }
     }
 
-    public void ExpandRoot(Vector2 end) {
+    public GameObject ExpandRoot(Vector2 end, bool force = false) {
 
-        if (!BuyRoot() || !ComputeConstraints(ref end)) {
-            return;
+        bool outOfPlanet = false;
+        if (!force && (!BuyRoot() || !ComputeConstraints(ref end, out outOfPlanet))) {
+            return null;
         }
 
         GameObject child = InstantiateChild(end);
 
+        if (outOfPlanet) {
+            PlanetSapling.CreateSlot(end, child.GetComponent<TreeRoot>());
+        }
+
         UpdateSelection(child);
+        return child;
     }
 
 
     bool BuyRoot() {
-        return ResourceManager.instance.PayResource(properties.resource, properties.cost);
+        return ResourceManager.instance.PayResource(properties.cost);
     }
 
-    bool ComputeConstraints(ref Vector2 end) {
+    bool ComputeConstraints(ref Vector2 end, out bool outOfPlanet) {
         
         Vector2 start = currSpline.GetPosition(1);
         Vector2 direction = end - start;
+        outOfPlanet = false;
 
         var distance = Vector2.Distance(start, end);
         if (distance > Settings.instance.maxRootLength) {
@@ -109,6 +114,7 @@ public class TreeRoot : MonoBehaviour
             end = start + line * t;
             direction = end - start;
             alteredLength = true;
+            outOfPlanet = true;
         }
 
         RaycastHit2D obstacleHit = Physics2D.Raycast(

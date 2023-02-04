@@ -1,5 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public struct ResourceCost {
+    public ResourceType type;
+    public float amount;
+
+    public ResourceCost(ResourceType type, float amount) {
+        this.type = type;
+        this.amount = amount;
+    }
+}
 
 public class ResourceManager : MonoBehaviour
 {
@@ -9,6 +21,7 @@ public class ResourceManager : MonoBehaviour
     public Resource[] resourceDefinitions;
 
     Dictionary<ResourceType, float> resources = new Dictionary<ResourceType, float>();
+    List<String> unlockedTrees = new List<String>();
 
     void Awake()
     {
@@ -49,15 +62,50 @@ public class ResourceManager : MonoBehaviour
         Debug.Log("Resource " + resource + " has " + resources[resource] + " units");
     }
 
-    public bool PayResource(ResourceType resource, float amount)
+    public bool HasResource(ResourceCost cost)
     {
-        if (resources[resource] >= amount)
+        return cost.type == ResourceType.None || resources[cost.type] >= cost.amount;
+    }
+
+    public bool PayResource(ResourceCost cost)
+    {
+        if (resources[cost.type] >= cost.amount)
         {
-            resources[resource] -= amount;
+            resources[cost.type] -= cost.amount;
             return true;
         }
 
         return false;
+    }
+
+    public bool PayResources(ResourceCost[] costs)
+    {
+
+        foreach (ResourceCost cost in costs)
+        {
+            if (resources[cost.type] < cost.amount)
+            {
+                return false;
+            }
+        }
+
+
+        foreach (ResourceCost cost in costs)
+        {
+            resources[cost.type] -= cost.amount;
+        }
+
+        return true;
+    }
+
+    public bool IsTreeUnlocked(String id)
+    {
+        return unlockedTrees.Contains(id);
+    }
+
+    public void UnlockTree(String id)
+    {
+        unlockedTrees.Add(id);
     }
 
 }

@@ -62,4 +62,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  saplingPrefab: {fileID: 8216502590797815842, guid: cf621c2e689bf034db8d4033baca72cd, type: 3}
+  trees:
+  - id: base
+    unlockCost:
+      type: 0
+      amount: 0
+    buyCost:
+    - type: 1
+      amount: 4
+    prefab: {fileID: 3368863770772593645, guid: 04b3159773023a24186d7d31aaf6f592, type: 3}
+    shopItem: {fileID: 1661338148, guid: 4e9a09f4d9ee86a4ea0c66b4a6b92708, type: 3}
+  - id: small
+    unlockCost:
+      type: 1
+      amount: 20
+    buyCost:
+    - type: 1
+      amount: 3
+    prefab: {fileID: 3368863770772593645, guid: 16c6b2165385b0b4fba8e73d5c3d05eb, type: 3}
+    shopItem: {fileID: 504798166, guid: 7dd7805c33c961643bd290b185781c1a, type: 3}
   planetCollider: {fileID: 0}

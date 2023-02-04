@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6429202530318899099}
   - component: {fileID: 2731240716384338354}
   - component: {fileID: 4198939202215698125}
+  - component: {fileID: 1487060711797348086}
   m_Layer: 0
   m_Name: Globals
   m_TagString: Untagged
@@ -122,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceDefinitions:
-  - type: 0
+  - type: 1
     drainRate: 1
 --- !u!114 &4198939202215698125
 MonoBehaviour:
@@ -137,3 +138,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRootLength: 5
+  minRootLength: 1
+  sapplingOffset: 1
+  selectionMode: 1
+--- !u!114 &1487060711797348086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6429202530318899098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42b0058a440783429d87e5c5cbb21aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treeShop: {fileID: 0}
+  treeShopContent: {fileID: 0}
+  treeShopFrames:
+  - {fileID: 1327135454, guid: 34d1f3ca82b66c241a016b0e15556694, type: 3}
+  - {fileID: 1022010789, guid: 34d1f3ca82b66c241a016b0e15556694, type: 3}
+  - {fileID: -673699813, guid: 34d1f3ca82b66c241a016b0e15556694, type: 3}
+  treeShopItemPrefab: {fileID: 8017573719195857716, guid: af6d4a6735d7cb447b877fe533bb0036, type: 3}
