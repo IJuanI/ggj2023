@@ -1,19 +1,41 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-// [RequireComponent(typeof BoxCollider2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class ResourceLand : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public ResourceType resource;
+
+    bool isOccupied = false, underCooldown = false;
+
+    Resource resourceDefinition;
+
     void Start()
     {
-        
+        resourceDefinition = ResourceManager.instance.GetResourceDefinition(resource);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (isOccupied && !underCooldown)
+        {
+            ResourceManager.instance.AddResource(resource, resourceDefinition.drainRate);
+            StartCoroutine(Cooldown());
+        }
+    }
+
+    IEnumerator Cooldown()
+    {
+        underCooldown = true;
+        yield return new WaitForSeconds(1);
+        underCooldown = false;
+    }
+
+    public void OnTriggerStay2D(Collider2D other)
+    {
+        if (!isOccupied && other.gameObject.CompareTag("Root"))
+        {
+            isOccupied = true;
+        }
     }
 }

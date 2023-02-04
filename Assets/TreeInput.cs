@@ -5,8 +5,6 @@ using UnityEngine.U2D;
 public class TreeInput : MonoBehaviour
 {
 
-  public SpriteShapeController arbolito;
-
   private TreeRoot selectedRoot = null;
 
 

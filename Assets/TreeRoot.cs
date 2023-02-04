@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.U2D;
 
-[RequireComponent(typeof (SpriteShapeController)/* , typeof(PolygonCollider2D) */)]
+[RequireComponent(typeof (SpriteShapeController), typeof(EdgeCollider2D))]
 public class TreeRoot : MonoBehaviour
 {
 

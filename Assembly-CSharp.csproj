@@ -39,6 +39,9 @@
      <Compile Include="Assets\TreeInput.cs" />
      <Compile Include="Assets\TreeRoot.cs" />
      <Compile Include="Assets\ResourceLand.cs" />
+     <Compile Include="Assets\Resource.cs" />
+     <Compile Include="Assets\ResourceType.cs" />
+     <Compile Include="Assets\ResourceManager.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
