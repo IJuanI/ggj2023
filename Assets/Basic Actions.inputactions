@@ -6,9 +6,18 @@
             "id": "2f63ec36-ee2c-4cba-a70f-d3fbf922fb1d",
             "actions": [
                 {
-                    "name": "Left Click",
+                    "name": "Main Action",
                     "type": "Button",
                     "id": "f8c2a683-14fa-4a5a-b32d-cc3fc570d846",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Alt Action",
+                    "type": "Button",
+                    "id": "bb52f5fe-2223-46e8-a2c7-279f97138f10",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -23,7 +32,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Key n Mouse",
-                    "action": "Left Click",
+                    "action": "Main Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb506c35-c9ff-4aa5-b2e3-1f3cde162ba6",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Key n Mouse",
+                    "action": "Alt Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

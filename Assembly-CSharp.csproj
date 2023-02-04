@@ -36,9 +36,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\InteractableShape.cs" />
      <Compile Include="Assets\TreeInput.cs" />
      <Compile Include="Assets\TreeRoot.cs" />
+     <Compile Include="Assets\ResourceLand.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

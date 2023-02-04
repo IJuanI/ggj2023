@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D;
 
-public class InteractableShape : MonoBehaviour
+// [RequireComponent(typeof BoxCollider2D))]
+public class ResourceLand : MonoBehaviour
 {
-    public SpriteShapeController arbolito;
-
     // Start is called before the first frame update
     void Start()
     {
