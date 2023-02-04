@@ -42,6 +42,9 @@
      <Compile Include="Assets\Resource.cs" />
      <Compile Include="Assets\ResourceType.cs" />
      <Compile Include="Assets\ResourceManager.cs" />
+     <Compile Include="Assets\Planet.cs" />
+     <Compile Include="Assets\Settings.cs" />
+     <Compile Include="Assets\RootType.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

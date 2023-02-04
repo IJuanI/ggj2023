@@ -5,6 +5,22 @@ using UnityEngine.U2D;
 public class TreeInput : MonoBehaviour
 {
 
+  // Singleton
+
+  public static TreeInput instance;
+
+  void Awake()
+  {
+    if (instance == null)
+    {
+      instance = this;
+    }
+    else
+    {
+      Destroy(gameObject);
+    }
+  }
+
   private TreeRoot selectedRoot = null;
 
 
@@ -29,7 +45,7 @@ public class TreeInput : MonoBehaviour
     {
       if (selectedRoot != null)
       {
-        selectedRoot.spawnChild(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
+        selectedRoot.ExpandRoot(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
       }
     }
   }
@@ -55,7 +71,7 @@ public class TreeInput : MonoBehaviour
     return null;
   }
 
-  void SelectRoot(TreeRoot root)
+  public void SelectRoot(TreeRoot root)
   {
     if (selectedRoot != null)
     {

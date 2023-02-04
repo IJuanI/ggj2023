@@ -1,12 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-struct ResourceItem
-{
-    public int amount;
-    public Resource resource;
-}
-
 public class ResourceManager : MonoBehaviour
 {
 
@@ -14,7 +8,7 @@ public class ResourceManager : MonoBehaviour
 
     public Resource[] resourceDefinitions;
 
-    Dictionary<ResourceType, int> resources = new Dictionary<ResourceType, int>();
+    Dictionary<ResourceType, float> resources = new Dictionary<ResourceType, float>();
 
     void Awake()
     {
@@ -49,10 +43,21 @@ public class ResourceManager : MonoBehaviour
         return new Resource();
     }
 
-    public void AddResource(ResourceType resource, int amount)
+    public void AddResource(ResourceType resource, float amount)
     {
         resources[resource] += amount;
         Debug.Log("Resource " + resource + " has " + resources[resource] + " units");
+    }
+
+    public bool PayResource(ResourceType resource, float amount)
+    {
+        if (resources[resource] >= amount)
+        {
+            resources[resource] -= amount;
+            return true;
+        }
+
+        return false;
     }
 
 }
