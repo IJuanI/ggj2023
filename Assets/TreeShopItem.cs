@@ -26,7 +26,7 @@ public class TreeShopItem : MonoBehaviour
       ResourceCost[] costs = new ResourceCost[tree.buyCost.Length];
       for (int i = 0; i < tree.buyCost.Length; i++) {
         costs[i] = tree.buyCost[i];
-        costs[i].amount *= Mathf.Pow(ResourceManager.instance.GetTreeCount(tree), tree.growthExpRate);
+        costs[i].amount = Mathf.Floor(costs[i].amount * Mathf.Pow(ResourceManager.instance.GetTreeCount(tree), tree.growthExpRate));
       }
 
       if (ResourceManager.instance.PayResources(costs)) {
