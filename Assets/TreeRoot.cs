@@ -37,6 +37,7 @@ public class TreeRoot : MonoBehaviour
     [SerializeField]
     public RootProperties properties;
     public TreeRoot parent;
+    public Tree tree;
     List<TreeRoot> children = new List<TreeRoot>();
 
     bool selected = false, visible = false;
@@ -54,6 +55,7 @@ public class TreeRoot : MonoBehaviour
 
     void Start()
     {
+        tree = GetComponentInParent<Tree>();
         currSpline = GetComponent<SpriteShapeController>().spline;
     }
 
