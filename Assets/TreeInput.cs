@@ -21,7 +21,34 @@ public class TreeInput : MonoBehaviour
   }
 
   private TreeRoot selectedRoot = null;
+  private TreeRoot focusedRoot = null;
 
+  void Update() {
+    CheckRootFocus();    
+  }
+
+  void CheckRootFocus() {
+
+    TreeRoot prevFocus = focusedRoot;
+
+    Transform selection = FindNearSelectable(Mouse.current.position.ReadValue());
+    if (selection != null)
+    {
+        TreeRoot root = selection.GetComponentInParent<TreeRoot>();
+        if (root != null && root != selectedRoot) {
+            focusedRoot = root;
+            focusedRoot.SetVisible(true);
+        } else {
+            focusedRoot = null;
+        }
+    } else {
+        focusedRoot = null;
+    }
+
+    if (prevFocus != null && prevFocus != focusedRoot) {
+        prevFocus.SetVisible(false);
+    }
+  }
 
   #region Input Actions
 

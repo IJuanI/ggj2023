@@ -34,5 +34,7 @@ public class Settings : MonoBehaviour
 
     public int saplingRootLock = 3;
 
+    public float rootHeightScale = 0.25f;
+
     public SelectionMode selectionMode = SelectionMode.Next;
 }
