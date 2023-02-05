@@ -51,6 +51,8 @@ public class PlanetSapling : MonoBehaviour
 
         Destroy(gameObject);
         onGrow.Invoke();
+
+        ResourceManager.instance.AddTree(tree);
     }
 
 

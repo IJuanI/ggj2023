@@ -22,7 +22,14 @@ public class TreeShopItem : MonoBehaviour
   public void Buy() {
 
     if (unlocked) {
-      if (ResourceManager.instance.PayResources(tree.buyCost)) {
+
+      ResourceCost[] costs = new ResourceCost[tree.buyCost.Length];
+      for (int i = 0; i < tree.buyCost.Length; i++) {
+        costs[i] = tree.buyCost[i];
+        costs[i].amount *= Mathf.Pow(ResourceManager.instance.GetTreeCount(tree), tree.growthExpRate);
+      }
+
+      if (ResourceManager.instance.PayResources(costs)) {
         ShopManager.instance.CloseTreeShop();
         sapling.Grow(tree);
       }
