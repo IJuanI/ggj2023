@@ -20,9 +20,13 @@ public class ResourceManager : MonoBehaviour
 
     public Resource[] resourceDefinitions;
 
+    public GameObject inventoryPanel;
+    public GameObject resourceHudPrefab;
+
     Dictionary<ResourceType, float> resources = new Dictionary<ResourceType, float>();
     List<String> unlockedTrees = new List<String>();
     Dictionary<TreeItem, int> treeCounts = new Dictionary<TreeItem, int>();
+    Dictionary<ResourceType, ResourceHud> resourceHuds = new Dictionary<ResourceType, ResourceHud>();
     int rootCount = 0;
 
     void Awake()
@@ -90,8 +94,7 @@ public class ResourceManager : MonoBehaviour
 
     public void AddResource(ResourceType resource, float amount)
     {
-        resources[resource] += amount;
-        Debug.Log("Resource " + resource + " has " + resources[resource] + " units");
+        UpdateResource(resource, resources[resource] + amount);
     }
 
     public bool HasResource(ResourceCost cost)
@@ -103,7 +106,7 @@ public class ResourceManager : MonoBehaviour
     {
         if (resources[cost.type] >= cost.amount)
         {
-            resources[cost.type] -= cost.amount;
+            UpdateResource(cost.type, resources[cost.type] - cost.amount);
             return true;
         }
 
@@ -112,7 +115,24 @@ public class ResourceManager : MonoBehaviour
 
     public void RemoveResource(ResourceCost cost)
     {
-        resources[cost.type] = Mathf.Max(0, resources[cost.type] - cost.amount);
+        UpdateResource(cost.type, Mathf.Max(0, resources[cost.type] - cost.amount));
+    }
+
+    void UpdateResource(ResourceType resource, float amount)
+    {
+        resources[resource] = amount;
+
+        Resource resourceDefinition = GetResourceDefinition(resource);
+        if (!resourceHuds.ContainsKey(resource))
+        {
+            GameObject hud = Instantiate(resourceHudPrefab, inventoryPanel.transform);
+            ResourceHud hudScript = hud.GetComponent<ResourceHud>();
+
+            hudScript.SetIcon(resourceDefinition.icon);
+            resourceHuds.Add(resource, hudScript);
+        }
+
+        resourceHuds[resource].SetAmount((int)amount);
     }
 
     public bool PayResources(ResourceCost[] costs)
@@ -129,7 +149,7 @@ public class ResourceManager : MonoBehaviour
 
         foreach (ResourceCost cost in costs)
         {
-            resources[cost.type] -= cost.amount;
+            UpdateResource(cost.type, resources[cost.type] - cost.amount);
         }
 
         return true;

@@ -39,7 +39,7 @@ public class PlanetSapling : MonoBehaviour
 
             if (parent) {
                 parent.Relocate(closestRoot.transform.position);
-                parent.LockRoots(Settings.instance.saplingRootLock);
+                // parent.LockRoots(Settings.instance.saplingRootLock);
             }
 
             foreach (TreeRoot childRoot in childRoots) {

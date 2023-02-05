@@ -95,7 +95,7 @@ public class TreeRoot : MonoBehaviour
     }
 
     public void LockRoots(int lockCount) {
-        if (lockCount <= 0) {
+        if (properties.vitality > 0 && lockCount <= 0) {
             return;
         }
 
