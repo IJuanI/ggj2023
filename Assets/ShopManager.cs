@@ -42,7 +42,10 @@ public class ShopManager : MonoBehaviour
       }
 
       treeShop.SetActive(true);
+    }
 
+    public void CloseTreeShop() {
+      treeShop.SetActive(false);
     }
 
 }

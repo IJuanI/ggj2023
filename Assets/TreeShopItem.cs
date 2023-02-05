@@ -23,6 +23,7 @@ public class TreeShopItem : MonoBehaviour
 
     if (unlocked) {
       if (ResourceManager.instance.PayResources(tree.buyCost)) {
+        ShopManager.instance.CloseTreeShop();
         sapling.Grow(tree);
       }
     } else {

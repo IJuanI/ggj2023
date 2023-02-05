@@ -36,18 +36,20 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\TreeInput.cs" />
-     <Compile Include="Assets\TreeRoot.cs" />
-     <Compile Include="Assets\ResourceLand.cs" />
-     <Compile Include="Assets\Resource.cs" />
      <Compile Include="Assets\ResourceType.cs" />
-     <Compile Include="Assets\ResourceManager.cs" />
-     <Compile Include="Assets\Planet.cs" />
-     <Compile Include="Assets\Settings.cs" />
-     <Compile Include="Assets\RootType.cs" />
-     <Compile Include="Assets\PlanetSapling.cs" />
-     <Compile Include="Assets\ShopManager.cs" />
+     <Compile Include="Assets\TreeRoot.cs" />
      <Compile Include="Assets\TreeShopItem.cs" />
+     <Compile Include="Assets\TreeInput.cs" />
+     <Compile Include="Assets\ResourceManager.cs" />
+     <Compile Include="Assets\RootType.cs" />
+     <Compile Include="Assets\Settings.cs" />
+     <Compile Include="Assets\PlanetSapling.cs" />
+     <Compile Include="Assets\Resource.cs" />
+     <Compile Include="Assets\Tree.cs" />
+     <Compile Include="Assets\ResourceLand.cs" />
+     <Compile Include="Assets\ShopManager.cs" />
+     <Compile Include="Assets\Planet.cs" />
+     <Compile Include="Assets\Obstacle.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -750,8 +752,8 @@
     <Reference Include="UnityEditor.UI">
         <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-        <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    <Reference Include="Unity.InputSystem">
+        <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
         <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
@@ -762,14 +764,14 @@
     <Reference Include="UnityEngine.UI">
         <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+        <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.Tilemap.Extras.Editor">
         <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Psdimporter.Editor">
         <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-        <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Core">
         <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
@@ -785,6 +787,9 @@
     </Reference>
     <Reference Include="Unity.Burst">
         <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+        <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
         <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
@@ -830,9 +835,6 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
         <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InputSystem">
-        <HintPath>D:\juegos\Raiz Espacial\Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

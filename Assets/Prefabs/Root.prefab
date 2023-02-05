@@ -93,8 +93,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: 0.027099535, y: 0, z: 0}
-    m_Extent: {x: 0.27709952, y: 0.2, z: 0}
+    m_Center: {x: 0.011564165, y: 0, z: 0}
+    m_Extent: {x: 0.27698305, y: 0.2, z: 0}
 --- !u!114 &345748520886212384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Spline:
     m_IsOpenEnded: 1
     m_ControlPoints:
-    - position: {x: 0, y: 0, z: 0}
+    - position: {x: -0.015418872, y: 0, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 1
-    - position: {x: 0, y: 0, z: 0}
+    - position: {x: 0.038547203, y: 0, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -170,6 +170,9 @@ MonoBehaviour:
     cost:
       type: 0
       amount: 0
+    vitality: 5
+    growOnPlanet: 1
+  parent: {fileID: 0}
 --- !u!68 &345748520886212389
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -186,9 +189,9 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0.6
   m_Points:
-  - {x: -0.24999999, y: -0.0004000034}
-  - {x: 0.05419904, y: -0.0004000034}
-  - {x: 0.30419904, y: -0.0004000034}
+  - {x: -0.2654189, y: -0.0004000034}
+  - {x: 0.038547203, y: -0.0004000034}
+  - {x: 0.28854722, y: -0.0004000034}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0

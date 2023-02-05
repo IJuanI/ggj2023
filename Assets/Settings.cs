@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum SelectionMode {
@@ -33,6 +31,8 @@ public class Settings : MonoBehaviour
     public float saplingOffset = 0.5f;
 
     public float treeOffset = -0.2f;
+
+    public int saplingRootLock = 3;
 
     public SelectionMode selectionMode = SelectionMode.Next;
 }

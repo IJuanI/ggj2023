@@ -78,6 +78,11 @@ public class ResourceManager : MonoBehaviour
         return false;
     }
 
+    public void RemoveResource(ResourceCost cost)
+    {
+        resources[cost.type] = Mathf.Max(0, resources[cost.type] - cost.amount);
+    }
+
     public bool PayResources(ResourceCost[] costs)
     {
 

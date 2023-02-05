@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -8,12 +9,9 @@ public struct RootProperties {
     public Planet planet;
     public RootType type;
     public ResourceCost cost;
+    public int vitality;
+    public bool growOnPlanet;
 
-    public RootProperties(Planet planet, RootType type, ResourceCost cost) {
-        this.planet = planet;
-        this.type = type;
-        this.cost = cost;
-    }
 }
 
 [Serializable]
@@ -31,7 +29,8 @@ public class TreeRoot : MonoBehaviour
 
     [SerializeField]
     public RootProperties properties;
-    TreeRoot parent;
+    public TreeRoot parent;
+    List<TreeRoot> children = new List<TreeRoot>();
 
     Spline currSpline;
 
@@ -61,17 +60,55 @@ public class TreeRoot : MonoBehaviour
         }
     }
 
+    public void LockRoots(int lockCount) {
+        if (lockCount <= 0) {
+            return;
+        }
+
+        Lock();
+        if (children.Count > 0) {
+            children[0].LockRoots(lockCount - 1);
+        }
+
+        if (parent != null) {
+            parent.LockRoots(lockCount - 1);
+        }
+    }
+
+    public Vector2 GetEnd() {
+        return transform.TransformPoint(currSpline.GetPosition(1));
+    }
+
+    public void Lock() {
+        ResourceCost cost = properties.cost;
+        ResourceManager.instance.AddResource(cost.type, Mathf.Ceil(cost.amount / 2));
+        properties.vitality = 0;
+    }
+
+    public void Relocate(Vector2 end) {
+        currSpline.SetPosition(1, transform.InverseTransformPoint(end));
+
+        foreach (Transform grandchild in transform) {
+            grandchild.transform.position = end;
+        }
+
+        foreach (TreeRoot child in children) {
+            child.currSpline.SetPosition(0, end);
+        }
+    }
+
     public GameObject ExpandRoot(Vector2 end, bool force = false) {
 
         bool outOfPlanet = false;
-        if (!force && (!BuyRoot() || !ComputeConstraints(ref end, out outOfPlanet))) {
+        if (!force && (!CheckRequisites() || !ComputeConstraints(ref end, out outOfPlanet))) {
             return null;
         }
 
         GameObject child = InstantiateChild(end);
+        TreeRoot childRoot = child.GetComponent<TreeRoot>();
 
-        if (outOfPlanet) {
-            PlanetSapling.CreateSlot(end, child.GetComponent<TreeRoot>());
+        if (outOfPlanet && properties.growOnPlanet) {
+            PlanetSapling.CreateSlot(end, childRoot);
         }
 
         UpdateSelection(child);
@@ -79,13 +116,13 @@ public class TreeRoot : MonoBehaviour
     }
 
 
-    bool BuyRoot() {
-        return ResourceManager.instance.PayResource(properties.cost);
+    bool CheckRequisites() {
+        return properties.vitality > 0 && ResourceManager.instance.PayResource(properties.cost);
     }
 
     bool ComputeConstraints(ref Vector2 end, out bool outOfPlanet) {
         
-        Vector2 start = currSpline.GetPosition(1);
+        Vector2 start = transform.TransformPoint(currSpline.GetPosition(1));
         Vector2 direction = end - start;
         outOfPlanet = false;
 
@@ -117,11 +154,33 @@ public class TreeRoot : MonoBehaviour
             outOfPlanet = true;
         }
 
-        RaycastHit2D obstacleHit = Physics2D.Raycast(
+        RaycastHit2D[] obstacleHits = Physics2D.RaycastAll(
             start + direction.normalized * .1f, direction,
             direction.magnitude, LayerMask.GetMask("Obstacle"));
-        if (obstacleHit.collider != null) {
-            end = obstacleHit.point;
+
+        bool bypassableObstacle = false;
+        Vector2 closestPoint = Vector2.positiveInfinity;
+
+        foreach (var obstacleHit in obstacleHits) {
+
+            if (obstacleHit.transform == transform) {
+                continue;
+            }
+
+            Obstacle obstacleScript = obstacleHit.transform.GetComponent<Obstacle>();
+            if (obstacleScript != null && obstacleScript.IsBypassable(properties.type)) {
+                continue;
+            }
+
+            if (obstacleHit.point.sqrMagnitude < closestPoint.sqrMagnitude) {
+                closestPoint = obstacleHit.point;
+            }
+
+            bypassableObstacle = true;
+        }
+
+        if (bypassableObstacle) {
+            end = closestPoint;
             direction = end - start;
             alteredLength = true;
         }
@@ -145,15 +204,17 @@ public class TreeRoot : MonoBehaviour
         Spline childSpline = child.GetComponent<SpriteShapeController>().spline;
         childSpline.Clear();
         childSpline.InsertPointAt(0, currSpline.GetPosition(1));
-        childSpline.InsertPointAt(1, end);
+        childSpline.InsertPointAt(1, child.transform.InverseTransformPoint(end));
 
         foreach (Transform grandchild in child.transform) {
-            grandchild.transform.position = childSpline.GetPosition(1);
+            grandchild.transform.position = end;
         }
         
         TreeRoot childController = child.GetComponent<TreeRoot>();
+        children.Add(childController);
         childController.parent = this;
         childController.properties = properties;
+        --childController.properties.vitality;
 
         return child;
     }

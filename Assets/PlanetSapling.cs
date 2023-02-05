@@ -20,18 +20,24 @@ public class PlanetSapling : MonoBehaviour
         Quaternion rotation = Quaternion.FromToRotation(
             Vector3.up, transform.position - parent.properties.planet.transform.position);
         GameObject treeInstance = Instantiate(
-            tree.prefab, transform.position, rotation, parent.transform.parent);
+            tree.prefab, transform.position, rotation, transform.parent);
         
         TreeRoot[] childRoots = treeInstance.GetComponentsInChildren<TreeRoot>();
 
-        GameObject boundRoot = parent.ExpandRoot(childRoots[0].transform.position, true);
-        boundRoot.transform.SetParent(childRoots[0].transform.parent);
+        Vector2 parentPos = parent.parent.GetEnd();
+        float distA = Vector2.Distance(parentPos, childRoots[0].transform.position);
+        float distB = Vector2.Distance(parentPos, childRoots[2].transform.position);
+
+        TreeRoot closestRoot = distA < distB ? childRoots[0] : childRoots[2];
+
+        parent.Relocate(closestRoot.transform.position);
+        parent.LockRoots(Settings.instance.saplingRootLock);
 
         foreach (TreeRoot childRoot in childRoots) {
             childRoot.properties.planet = parent.properties.planet;
         }
         
-        Destroy(childRoots[0].gameObject);
+        Destroy(closestRoot.gameObject);
         Destroy(gameObject);
     }
 
