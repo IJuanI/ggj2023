@@ -31,7 +31,7 @@ public class ResourceLand : MonoBehaviour
     IEnumerator Cooldown()
     {
         underCooldown = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(Settings.instance.resourceGenDelay);
         underCooldown = false;
     }
 

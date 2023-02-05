@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 345748520886212388}
   - component: {fileID: 345748520886212389}
   m_Layer: 0
-  m_Name: Root
+  m_Name: Root HotRes
   m_TagString: Root
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteShapeRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.990566, g: 0.378471, b: 0.378471, a: 1}
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
   m_Sprites:
@@ -160,18 +160,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSkin:
     sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-    color: {r: 0.93333334, g: 0.8156863, b: 0.69803923, a: 1}
+    color: {r: 0.99215686, g: 0.38039216, b: 0.38039216, a: 1}
   selectedSkin:
     sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-    color: {r: 0.9811321, g: 0.35325703, b: 0.34617302, a: 1}
+    color: {r: 0.9622642, g: 0.13291933, b: 0.12255252, a: 1}
   properties:
     planet: {fileID: 0}
-    type: 0
+    type: 1
     cost:
-      type: 1
-      amount: 5
-    vitality: 5
-    growOnPlanet: 1
+      type: 2
+      amount: 3
+    vitality: 4
+    growOnPlanet: 0
   parent: {fileID: 0}
   tree: {fileID: 0}
 --- !u!68 &345748520886212389

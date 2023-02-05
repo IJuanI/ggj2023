@@ -36,5 +36,7 @@ public class Settings : MonoBehaviour
 
     public float rootHeightScale = 0.25f;
 
+    public float resourceGenDelay = 1f;
+
     public SelectionMode selectionMode = SelectionMode.Next;
 }

@@ -1,3 +1,5 @@
 public enum RootType {
-    Default
+    Default,
+    Drill,
+    HeatResistant
 }
