@@ -152,9 +152,9 @@ public class TreeRoot : MonoBehaviour
     bool CheckRequisites() {
         return properties.vitality > 0
             && ResourceManager.instance.PayResource(
-                new ResourceCost(properties.cost.type, properties.cost.amount
+                new ResourceCost(properties.cost.type, Mathf.Floor(properties.cost.amount
                     * Mathf.Pow(ResourceManager.instance.GetRootCount(),
-                    Settings.instance.rootCostExpGrowth)));
+                    Settings.instance.rootCostExpGrowth))));
     }
 
     bool ComputeConstraints(ref Vector2 end, out bool outOfPlanet) {

@@ -12,8 +12,8 @@ public class ResourceHud : MonoBehaviour
         iconSkin.sprite = icon;
     }
 
-    public void SetAmount(int amount) {
-        amountText.text = amount.ToString();
+    public void SetText(string text) {
+        amountText.text = text;
     }
 
 }

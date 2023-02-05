@@ -8,7 +8,17 @@ public class Tree : MonoBehaviour
 
   public ResourceCost[] generates;
 
+  public ResourceCost[] storage;
+
   bool underCooldown = false;
+
+  private void Start()
+  {
+    foreach (ResourceCost cost in storage)
+    {
+      ResourceManager.instance.AddCapacity(cost.type, (int) cost.amount);
+    }
+  }
 
   void Update()
   {
