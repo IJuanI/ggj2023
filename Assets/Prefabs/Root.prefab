@@ -78,7 +78,7 @@ SpriteShapeRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 6
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSkin:
     sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-    color: {r: 0.93333334, g: 0.8156863, b: 0.69803923, a: 1}
+    color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   selectedSkin:
     sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
     color: {r: 0.9811321, g: 0.35325703, b: 0.34617302, a: 1}
@@ -317,9 +317,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 6
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9339623, g: 0.81435317, b: 0.6995906, a: 1}
+  m_Color: {r: 0.4716981, g: 0.46947312, b: 0.46947312, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
