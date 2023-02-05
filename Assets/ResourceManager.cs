@@ -27,6 +27,7 @@ public class ResourceManager : MonoBehaviour
     List<String> unlockedTrees = new List<String>();
     Dictionary<TreeItem, int> treeCounts = new Dictionary<TreeItem, int>();
     Dictionary<ResourceType, ResourceHud> resourceHuds = new Dictionary<ResourceType, ResourceHud>();
+    Dictionary<ResourceType, int> resourceCapacities = new Dictionary<ResourceType, int>();
     int rootCount = 0;
 
     void Awake()
@@ -46,6 +47,7 @@ public class ResourceManager : MonoBehaviour
         foreach (ResourceType resource in System.Enum.GetValues(typeof(ResourceType)))
         {
             resources.Add(resource, 0);
+            resourceCapacities.Add(resource, GetResourceDefinition(resource).defaultCapacity);
         }
     }
 
@@ -82,6 +84,11 @@ public class ResourceManager : MonoBehaviour
         return treeCounts[tree];
     }
 
+    public void AddCapacity(ResourceType resource, int amount)
+    {
+        resourceCapacities[resource] += amount;
+    }
+
     public void AddRoot()
     {
         rootCount += 1;
@@ -94,7 +101,7 @@ public class ResourceManager : MonoBehaviour
 
     public void AddResource(ResourceType resource, float amount)
     {
-        UpdateResource(resource, resources[resource] + amount);
+        UpdateResource(resource, Mathf.Min(resources[resource] + amount, resourceCapacities[resource]));
     }
 
     public bool HasResource(ResourceCost cost)
@@ -132,7 +139,7 @@ public class ResourceManager : MonoBehaviour
             resourceHuds.Add(resource, hudScript);
         }
 
-        resourceHuds[resource].SetAmount((int)amount);
+        resourceHuds[resource].SetText(amount.ToString() + "/" + resourceCapacities[resource].ToString());
     }
 
     public bool PayResources(ResourceCost[] costs)

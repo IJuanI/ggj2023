@@ -7,5 +7,6 @@ public struct Resource {
   public ResourceType type;
   public int drainRate;
   public Sprite icon;
+  public int defaultCapacity;
 
 }

@@ -509,6 +509,7 @@ MonoBehaviour:
   generates:
   - type: 1
     amount: 1
+  storage: []
 --- !u!1 &366758160
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,6 +950,7 @@ MonoBehaviour:
   - type: 1
     amount: 1
   generates: []
+  storage: []
 --- !u!1001 &1021153643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1762,6 +1764,7 @@ MonoBehaviour:
   - type: 1
     amount: 1
   generates: []
+  storage: []
 --- !u!1001 &7363107613132486495
 PrefabInstance:
   m_ObjectHideFlags: 0

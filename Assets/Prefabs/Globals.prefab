@@ -125,6 +125,10 @@ MonoBehaviour:
   resourceDefinitions:
   - type: 1
     drainRate: 1
+    icon: {fileID: 0}
+    defaultCapacity: 80
+  inventoryPanel: {fileID: 0}
+  resourceHudPrefab: {fileID: 0}
 --- !u!114 &4198939202215698125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +146,9 @@ MonoBehaviour:
   saplingOffset: 0.5
   treeOffset: -0.2
   saplingRootLock: 3
+  rootHeightScale: 0.25
+  rootCostExpGrowth: 0.05
+  resourceGenDelay: 1
   selectionMode: 1
 --- !u!114 &1487060711797348086
 MonoBehaviour:

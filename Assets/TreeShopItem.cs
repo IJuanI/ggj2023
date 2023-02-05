@@ -91,7 +91,7 @@ public class TreeShopItem : MonoBehaviour
       GameObject costObj = Instantiate(ResourceCostPrefab, pricePanel.transform);
       ResourceHud hudScript = costObj.GetComponent<ResourceHud>();
       hudScript.SetIcon(ResourceManager.instance.GetResourceDefinition(cost.type).icon);
-      hudScript.SetAmount((int)cost.amount);
+      hudScript.SetText(cost.amount.ToString());
     }
   }
 
