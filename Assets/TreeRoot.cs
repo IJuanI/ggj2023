@@ -57,6 +57,9 @@ public class TreeRoot : MonoBehaviour
     {
         tree = GetComponentInParent<Tree>();
         currSpline = GetComponent<SpriteShapeController>().spline;
+
+        UpdateCameraPivots(gameObject);
+        ResourceManager.instance.AddRoot();
     }
 
     public void SetVisible(bool visible) {
@@ -117,11 +120,10 @@ public class TreeRoot : MonoBehaviour
     }
 
     public void Relocate(Vector2 end) {
+        Vector2 start = transform.TransformPoint(currSpline.GetPosition(0));
+        transform.position = end;
+        currSpline.SetPosition(0, transform.InverseTransformPoint(start));
         currSpline.SetPosition(1, transform.InverseTransformPoint(end));
-
-        foreach (Transform grandchild in transform) {
-            grandchild.transform.position = end;
-        }
 
         foreach (TreeRoot child in children) {
             child.currSpline.SetPosition(0, end);
@@ -148,7 +150,11 @@ public class TreeRoot : MonoBehaviour
 
 
     bool CheckRequisites() {
-        return properties.vitality > 0 && ResourceManager.instance.PayResource(properties.cost);
+        return properties.vitality > 0
+            && ResourceManager.instance.PayResource(
+                new ResourceCost(properties.cost.type, properties.cost.amount
+                    * Mathf.Pow(ResourceManager.instance.GetRootCount(),
+                    Settings.instance.rootCostExpGrowth)));
     }
 
     bool ComputeConstraints(ref Vector2 end, out bool outOfPlanet) {
@@ -231,17 +237,15 @@ public class TreeRoot : MonoBehaviour
 
     GameObject InstantiateChild(Vector2 end) {
         GameObject child = Instantiate(gameObject, transform.parent);
+        child.transform.position = end;
 
         Spline childSpline = child.GetComponent<SpriteShapeController>().spline;
         childSpline.Clear();
-        childSpline.InsertPointAt(0, currSpline.GetPosition(1));
+        childSpline.InsertPointAt(0, child.transform
+            .InverseTransformPoint(transform.TransformPoint(currSpline.GetPosition(1))));
         childSpline.SetHeight(0, (properties.vitality + 1) * Settings.instance.rootHeightScale);
         childSpline.InsertPointAt(1, child.transform.InverseTransformPoint(end));
         childSpline.SetHeight(1, (properties.vitality) * Settings.instance.rootHeightScale);
-
-        foreach (Transform grandchild in child.transform) {
-            grandchild.transform.position = end;
-        }
         
         TreeRoot childController = child.GetComponent<TreeRoot>();
         children.Add(childController);
@@ -250,6 +254,32 @@ public class TreeRoot : MonoBehaviour
         --childController.properties.vitality;
 
         return child;
+    }
+
+    void UpdateCameraPivots(GameObject childs) {
+        if (transform.position.y < CameraController.instance.minPivot.transform.position.y) {
+            Vector2 pivotPos = CameraController.instance.minPivot.transform.position;
+            pivotPos.y = transform.position.y;
+            CameraController.instance.minPivot.transform.position = pivotPos;
+        }
+
+        if (transform.position.y > CameraController.instance.maxPivot.transform.position.y) {
+            Vector2 pivotPos = CameraController.instance.maxPivot.transform.position;
+            pivotPos.y = transform.position.y;
+            CameraController.instance.maxPivot.transform.position = pivotPos;
+        }
+
+        if (transform.position.x < CameraController.instance.minPivot.transform.position.x) {
+            Vector2 pivotPos = CameraController.instance.minPivot.transform.position;
+            pivotPos.x = transform.position.x;
+            CameraController.instance.minPivot.transform.position = pivotPos;
+        }
+
+        if (transform.position.x > CameraController.instance.maxPivot.transform.position.x) {
+            Vector2 pivotPos = CameraController.instance.maxPivot.transform.position;
+            pivotPos.x = transform.position.x;
+            CameraController.instance.maxPivot.transform.position = pivotPos;
+        }
     }
 
     void UpdateSelection(GameObject childInstance) {

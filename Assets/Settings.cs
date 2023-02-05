@@ -35,6 +35,7 @@ public class Settings : MonoBehaviour
     public int saplingRootLock = 3;
 
     public float rootHeightScale = 0.25f;
+    public float rootCostExpGrowth = 0.05f;
 
     public float resourceGenDelay = 1f;
 
