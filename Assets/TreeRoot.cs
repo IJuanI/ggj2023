@@ -18,11 +18,18 @@ public struct RootProperties {
 public struct RootSkin {
     public Sprite sprite;
     public Color color;
+
+    public RootSkin(Sprite sprite, Color color) {
+        this.sprite = sprite;
+        this.color = color;
+    }
 }
 
 [RequireComponent(typeof (SpriteShapeController), typeof(EdgeCollider2D))]
 public class TreeRoot : MonoBehaviour
 {
+
+    private static RootSkin emptySkin = new RootSkin(null, new Color(1, 1, 1, 0));
 
     public RootSkin defaultSkin;
     public RootSkin selectedSkin;
@@ -30,8 +37,10 @@ public class TreeRoot : MonoBehaviour
     [SerializeField]
     public RootProperties properties;
     public TreeRoot parent;
+    public Tree tree;
     List<TreeRoot> children = new List<TreeRoot>();
 
+    bool selected = false, visible = false;
     Spline currSpline;
 
     SpriteRenderer _skinRender;
@@ -46,18 +55,40 @@ public class TreeRoot : MonoBehaviour
 
     void Start()
     {
+        tree = GetComponentInParent<Tree>();
         currSpline = GetComponent<SpriteShapeController>().spline;
     }
 
+    public void SetVisible(bool visible) {
+        this.visible = visible;
+
+        if (selected) {
+            return;
+        }
+
+        if (visible || parent == null) {
+            SetSkin(defaultSkin);
+        } else {
+            SetSkin(emptySkin);
+        }
+    }
 
     public void SetSelected(bool selected) {
+        this.selected = selected;
         if (selected) {
-            skinRender.sprite = selectedSkin.sprite;
-            skinRender.color = selectedSkin.color;
+            SetSkin(selectedSkin);
         } else {
-            skinRender.sprite = defaultSkin.sprite;
-            skinRender.color = defaultSkin.color;
+            if (visible || parent == null) {
+                SetSkin(defaultSkin);
+            } else {
+                SetSkin(emptySkin);
+            }
         }
+    }
+
+    void SetSkin(RootSkin skin) {
+        skinRender.sprite = skin.sprite;
+        skinRender.color = skin.color;
     }
 
     public void LockRoots(int lockCount) {
@@ -204,7 +235,9 @@ public class TreeRoot : MonoBehaviour
         Spline childSpline = child.GetComponent<SpriteShapeController>().spline;
         childSpline.Clear();
         childSpline.InsertPointAt(0, currSpline.GetPosition(1));
+        childSpline.SetHeight(0, (properties.vitality + 1) * Settings.instance.rootHeightScale);
         childSpline.InsertPointAt(1, child.transform.InverseTransformPoint(end));
+        childSpline.SetHeight(1, (properties.vitality) * Settings.instance.rootHeightScale);
 
         foreach (Transform grandchild in child.transform) {
             grandchild.transform.position = end;

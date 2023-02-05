@@ -139,7 +139,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRootLength: 5
   minRootLength: 1
-  sapplingOffset: 1
+  saplingOffset: 0.5
+  treeOffset: -0.2
+  saplingRootLock: 3
   selectionMode: 1
 --- !u!114 &1487060711797348086
 MonoBehaviour:

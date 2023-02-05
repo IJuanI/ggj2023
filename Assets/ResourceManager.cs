@@ -22,6 +22,7 @@ public class ResourceManager : MonoBehaviour
 
     Dictionary<ResourceType, float> resources = new Dictionary<ResourceType, float>();
     List<String> unlockedTrees = new List<String>();
+    Dictionary<TreeItem, int> treeCounts = new Dictionary<TreeItem, int>();
 
     void Awake()
     {
@@ -54,6 +55,26 @@ public class ResourceManager : MonoBehaviour
         }
 
         return new Resource();
+    }
+
+    public void AddTree(TreeItem tree)
+    {
+        if (!treeCounts.ContainsKey(tree))
+        {
+            treeCounts.Add(tree, 0);
+        }
+
+        treeCounts[tree] += 1;
+    }
+
+    public int GetTreeCount(TreeItem tree)
+    {
+        if (!treeCounts.ContainsKey(tree))
+        {
+            return 0;
+        }
+
+        return treeCounts[tree];
     }
 
     public void AddResource(ResourceType resource, float amount)

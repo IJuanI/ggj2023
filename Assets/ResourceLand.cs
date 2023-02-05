@@ -1,12 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class ResourceLand : MonoBehaviour
 {
     public ResourceType resource;
+    public int maxTrees = 3;
 
-    bool isOccupied = false, underCooldown = false;
+    bool underCooldown = false;
+    List<Tree> trees = new List<Tree>();
 
     Resource resourceDefinition;
 
@@ -17,9 +20,10 @@ public class ResourceLand : MonoBehaviour
 
     void Update()
     {
-        if (isOccupied && !underCooldown)
+        if (trees.Count > 0 && !underCooldown)
         {
-            ResourceManager.instance.AddResource(resource, resourceDefinition.drainRate);
+            ResourceManager.instance.AddResource(
+                resource, resourceDefinition.drainRate * Mathf.Min(trees.Count, maxTrees));
             StartCoroutine(Cooldown());
         }
     }
@@ -31,11 +35,19 @@ public class ResourceLand : MonoBehaviour
         underCooldown = false;
     }
 
-    public void OnTriggerStay2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isOccupied && other.gameObject.CompareTag("Root"))
+        if (other.gameObject.CompareTag("Root"))
         {
-            isOccupied = true;
+            TreeRoot root = other.gameObject.GetComponent<TreeRoot>();
+            if (root != null)
+            {
+                Tree tree = root.tree;
+                if (!trees.Contains(tree))
+                {
+                    trees.Add(tree);
+                }
+            }
         }
     }
 }

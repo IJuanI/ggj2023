@@ -1,44 +1,58 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlanetSapling : MonoBehaviour
 {
 
+    public Planet planet;
+    public UnityEvent onGrow;
     TreeRoot parent;
 
     public void OpenShop() {
 
-        ShopManager.instance.OpenTreeShop(parent.properties.planet, this);
+        ShopManager.instance.OpenTreeShop(
+            parent != null ? parent.properties.planet : this.planet, this);
     }
 
     public void Grow(TreeItem tree) {
 
-        Vector2 planetCenter = parent.properties.planet.transform.position;
-        Vector2 spawnPosition = planetCenter
-            + ((Vector2)transform.position - planetCenter).normalized
-            * (parent.properties.planet.planetCollider.radius + Settings.instance.saplingOffset);
+        Planet planet = parent != null ? parent.properties.planet : this.planet;
 
-        Quaternion rotation = Quaternion.FromToRotation(
-            Vector3.up, transform.position - parent.properties.planet.transform.position);
-        GameObject treeInstance = Instantiate(
-            tree.prefab, transform.position, rotation, transform.parent);
-        
-        TreeRoot[] childRoots = treeInstance.GetComponentsInChildren<TreeRoot>();
+        if (tree.prefab != null) {
+            Vector2 planetCenter = planet.transform.position;
+            Vector2 spawnPosition = planetCenter
+                + ((Vector2)transform.position - planetCenter).normalized
+                * (planet.planetCollider.radius + Settings.instance.saplingOffset);
 
-        Vector2 parentPos = parent.parent.GetEnd();
-        float distA = Vector2.Distance(parentPos, childRoots[0].transform.position);
-        float distB = Vector2.Distance(parentPos, childRoots[2].transform.position);
+            Quaternion rotation = Quaternion.FromToRotation(
+                Vector3.up, transform.position - planet.transform.position);
+            GameObject treeInstance = Instantiate(
+                tree.prefab, transform.position, rotation, transform.parent);
+            
+            TreeRoot[] childRoots = treeInstance.GetComponentsInChildren<TreeRoot>();
 
-        TreeRoot closestRoot = distA < distB ? childRoots[0] : childRoots[2];
+            Vector2 parentPos = parent.parent.GetEnd();
+            float distA = Vector2.Distance(parentPos, childRoots[0].transform.position);
+            float distB = Vector2.Distance(parentPos, childRoots[2].transform.position);
 
-        parent.Relocate(closestRoot.transform.position);
-        parent.LockRoots(Settings.instance.saplingRootLock);
+            TreeRoot closestRoot = distA < distB ? childRoots[0] : childRoots[2];
 
-        foreach (TreeRoot childRoot in childRoots) {
-            childRoot.properties.planet = parent.properties.planet;
+            if (parent) {
+                parent.Relocate(closestRoot.transform.position);
+                parent.LockRoots(Settings.instance.saplingRootLock);
+            }
+
+            foreach (TreeRoot childRoot in childRoots) {
+                childRoot.properties.planet = planet;
+            }
+            
+            Destroy(closestRoot.gameObject);
         }
-        
-        Destroy(closestRoot.gameObject);
+
         Destroy(gameObject);
+        onGrow.Invoke();
+
+        ResourceManager.instance.AddTree(tree);
     }
 
 

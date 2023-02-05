@@ -13,14 +13,29 @@ public struct TreeItem {
   public ResourceCost[] buyCost;
   public GameObject prefab;
   public Sprite shopItem;
+  public float growthExpRate;
   
-  public TreeItem(String id, ResourceCost unlockCost,
-    ResourceCost[] buyCost, GameObject prefab, Sprite shopItem) {
+  public TreeItem(String id, ResourceCost unlockCost, ResourceCost[] buyCost,
+    GameObject prefab, Sprite shopItem, float growthExpRate) {
     this.id = id;
     this.unlockCost = unlockCost;
     this.buyCost = buyCost;
     this.prefab = prefab;
     this.shopItem = shopItem;
+    this.growthExpRate = growthExpRate;
+  }
+
+  public override bool Equals(object obj) {
+    if (obj == null || GetType() != obj.GetType()) {
+      return false;
+    }
+
+    TreeItem other = (TreeItem) obj;
+    return id.Equals(other.id);
+  }
+
+  public override int GetHashCode() {
+    return id.GetHashCode();
   }
 
 }
