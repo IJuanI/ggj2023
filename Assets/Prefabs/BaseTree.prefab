@@ -137,6 +137,9 @@ MonoBehaviour:
   generates:
   - type: 1
     amount: 2
+  storage:
+  - type: 1
+    amount: 120
 --- !u!1 &6967063627506482405
 GameObject:
   m_ObjectHideFlags: 0

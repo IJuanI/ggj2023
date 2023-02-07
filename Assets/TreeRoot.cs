@@ -40,6 +40,8 @@ public class TreeRoot : MonoBehaviour
     public Tree tree;
     List<TreeRoot> children = new List<TreeRoot>();
 
+    public SpriteRenderer outlineRender;
+
     bool selected = false, visible = false;
     Spline currSpline;
 
@@ -90,6 +92,10 @@ public class TreeRoot : MonoBehaviour
     }
 
     void SetSkin(RootSkin skin) {
+        if (outlineRender != null) {
+            outlineRender.enabled = skin.sprite != null;
+        }
+
         skinRender.sprite = skin.sprite;
         skinRender.color = skin.color;
     }

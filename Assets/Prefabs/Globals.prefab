@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c644194bf72c22e49af23a0ac122bb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScore: 20
+  targetScore: 30
   musicSource: {fileID: 5274674217017394779}
   musicClips:
   - entryPercentage: 0
